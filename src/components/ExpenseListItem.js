@@ -4,7 +4,7 @@ import { removeExpense } from "../actions/expenses";
 
 const ExpenseListItem = ({ dispatch, id, description, amount, createdAt }) => (
   <div>
-    <h3>{description}</h3>
+    <h3>Description:{description}</h3>
     <p>
       Amount: {amount} - CreatedAt : {createdAt}
     </p>
