@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { setTextFilter, sortByDate, sortByAmount } from "../actions/filters";
 
 const ExpenseListFilter = (props) => {
-  console.log("prrr", props);
   return (
     <div>
       ExpenseListFilter
