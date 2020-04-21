@@ -1,23 +1,28 @@
 import React from "react";
 import { connect } from "react-redux";
 import addExpense from "../actions/expenses";
-import momonet from "moment";
+import moment from "moment";
 import "react-dates/initialize";
 import { SingleDatePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 
-const now = momonet();
-console.log("moment", now.format("MMM Do YYYY"));
+// const now = momonet();
+// console.log("moment", now.format("MMM Do YYYY"));
 
 class ExpenseForm extends React.Component {
-  state = {
-    description: "",
-    note: "",
-    amount: "",
-    createdAt: momonet(),
-    calendarFocused: false,
-    error: "",
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      description: props.expense ? props.expense.description : "",
+      note: props.expense ? props.expense.note : "",
+      amount: props.expense ? (props.expense.amount / 100).toString() : "",
+      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      calendarFocused: false,
+      error: "",
+    };
+  }
+
   onDescriptionChange = (e) => {
     const description = e.target.value;
     this.setState(() => ({ description }));
@@ -58,7 +63,7 @@ class ExpenseForm extends React.Component {
         description: this.state.description,
         note: this.state.note,
         amount: parseFloat(this.state.amount, 10) * 100,
-        createdAt: momonet(this.state.createdAt).valueOf(),
+        createdAt: moment(this.state.createdAt).valueOf(),
       });
     }
   };
@@ -71,13 +76,14 @@ class ExpenseForm extends React.Component {
           <input
             type="text"
             placeholder="Description"
+            value={this.state.description}
             autoFocus
             onChange={this.onDescriptionChange}
           />
           <input
             type="text"
             placeholder="Amount"
-            value={this.state.value}
+            value={this.state.amount}
             onChange={(e) => this.onAmountChange(e)}
           />
           <SingleDatePicker

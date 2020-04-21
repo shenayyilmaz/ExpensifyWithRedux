@@ -1,3 +1,5 @@
+import uuid from "uuid";
+
 // ADD_EXPENSE ACTION GENERATORS
 export const addExpense = ({
   description = "",
@@ -7,7 +9,7 @@ export const addExpense = ({
 } = {}) => ({
   type: "ADD_EXPENSE",
   expense: {
-    id: Math.floor(Math.random() * 999999),
+    id: uuid(),
     description,
     note,
     amount,
